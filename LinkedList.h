@@ -1,10 +1,9 @@
+#include <iostream>
+#include <string.h>
+#include <stdlib.h>
+#include "templateNode.h"
 #include "Vector.h"
-template <class T>
-struct Node
-{
-    T data;
-    Node<T> *next = NULL;
-};
+using namespace std;
 
 template <class T>
 class LinkedList
@@ -71,10 +70,10 @@ public:
             memoryError();
         Node<T> *p = head;
         int length = v.getLength();
-        for(int i = 0;i < length; ++i)
+        for (int i = 0; i < length; ++i)
         {
             Node<T> *s = new Node<T>();
-            if(s == NULL)
+            if (s == NULL)
                 memoryError();
             s->data = v[i];
             p->next = s;
@@ -142,13 +141,13 @@ public:
         Node<T> *pre = head;
         Node<T> *p = head->next;
         int count = 1;
-        while(p && count < k)
+        while (p && count < k)
         {
             p = p->next;
             pre = pre->next;
             count++;
         }
-        if(count > k || p == NULL)
+        if (count > k || p == NULL)
         {
             return false;
         }
@@ -158,12 +157,12 @@ public:
     }
 
     //查找等于value的第一个元素 返回地址
-    T* find(T value)
+    T *find(T value)
     {
         Node<T> *p = head;
         while (p = p->next)
         {
-            if(p->data == value)
+            if (p->data == value)
                 return &(p->data);
         }
         return NULL;
@@ -189,7 +188,7 @@ public:
         Node<T> *p = head->next;
         while (p)
         {
-            if(p->data == value)
+            if (p->data == value)
             {
                 Node<T> *temp = p;
                 pre->next = p->next;
@@ -201,7 +200,6 @@ public:
                 p = p->next;
                 pre = pre->next;
             }
-            
         }
     }
 
@@ -212,12 +210,12 @@ public:
             参考: 单向链表逆序
                 https://wenku.baidu.com/view/ee9f791552d380eb62946df9.html
         */
-        if(head->next == NULL || head->next->next == NULL)
+        if (head->next == NULL || head->next->next == NULL)
             return;
         Node<T> *p1 = head->next;
         Node<T> *p2 = p1->next, *p3;
         p1->next = NULL;
-        while(p2)
+        while (p2)
         {
             p3 = p2->next;
             p2->next = p1;
@@ -230,11 +228,11 @@ public:
     //升序排序
     void sort()
     {
-        if(head->next == NULL || head->next->next == NULL)
+        if (head->next == NULL || head->next->next == NULL)
             return;
         Node<T> *p = head->next;
         Node<T> *q, *r;
-        if(p != NULL)
+        if (p != NULL)
         {
             r = p->next;
             p->next = NULL;
@@ -244,6 +242,31 @@ public:
                 r = p->next;
                 q = head;
                 while (q->next != NULL && q->next->data < p->data)
+                    q = q->next;
+                p->next = q->next;
+                q->next = p;
+                p = r;
+            }
+        }
+    }
+
+    //自定义排序规则
+    void sort(bool(compare)(const T &, const T &))
+    {
+        if (head->next == NULL || head->next->next == NULL)
+            return;
+        Node<T> *p = head->next;
+        Node<T> *q, *r;
+        if (p != NULL)
+        {
+            r = p->next;
+            p->next = NULL;
+            p = r;
+            while (p != NULL)
+            {
+                r = p->next;
+                q = head;
+                while (q->next != NULL && compare(q->next->data, p->data))
                     q = q->next;
                 p->next = q->next;
                 q->next = p;
