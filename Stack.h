@@ -1,3 +1,6 @@
+#ifndef STACK
+#define STACK
+
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
@@ -87,3 +90,5 @@ public:
         return size;
     }
 };
+
+#endif

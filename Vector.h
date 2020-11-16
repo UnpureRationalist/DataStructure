@@ -1,3 +1,6 @@
+#ifndef VECTOR
+#define VECTOR
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
@@ -11,7 +14,7 @@ private:
     int length;
     int capacity;
 
-    void quickSort(int l, int r, bool(comp)(const T&, const T&))
+    void quickSort(int l, int r, bool(comp)(const T &, const T &))
     {
         if (l >= r)
             return;
@@ -20,11 +23,11 @@ private:
         while (i < j)
         {
             while (i < j && !comp(a[j], x))
-                j--;                        // 从右向左找第一个小于x的数
+                j--; // 从右向左找第一个小于x的数
             if (i < j)
                 a[i++] = a[j];
             while (i < j && comp(a[i], x))
-                i++;                       // 从左向右找第一个大于x的数
+                i++; // 从左向右找第一个大于x的数
             if (i < j)
                 a[j--] = a[i];
         }
@@ -187,11 +190,11 @@ public:
     {
         quickSort(0,
                   length - 1,
-                  [](const T& a, const T& b) -> bool { return a < b; });
+                  [](const T &a, const T &b) -> bool { return a < b; });
     }
 
     //自定义排序规则
-    void sort(bool(comp)(const T&, const T&))
+    void sort(bool(comp)(const T &, const T &))
     {
         quickSort(0, length - 1, comp);
     }
@@ -206,3 +209,5 @@ public:
         cout << endl;
     }
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef LINKEDLIST
+#define LINKEDLIST
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
@@ -275,3 +278,5 @@ public:
         }
     }
 };
+
+#endif

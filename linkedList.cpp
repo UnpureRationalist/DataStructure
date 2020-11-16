@@ -40,21 +40,27 @@ int main()
     cout << "find:\n";
     int *pint = list2.find(4);
     cout << "pint = " << pint << endl;
-    if(pint != NULL)
+    if (pint != NULL)
         cout << " *pint = " << *pint << endl;
-    
+
     cout << "bofore reverse:\n";
     list2.traverse();
     list2.reverse();
     cout << "after reverse:\n";
     list2.traverse();
 
-    cout << "before sort:\n";
+    cout << "before sort(default):\n";
     list2.traverse();
     list2.sort();
-    cout << "after sort:\n";
+    cout << "after sort(default):\n";
     list2.traverse();
-    
+
+    cout << "before sort(self define):\n";
+    list2.traverse();
+    list2.sort([](const int &a, const int &b) -> bool { return a > b; });
+    cout << "after sort(self define):\n";
+    list2.traverse();
+
     cout << "before remove 1:\n";
     list2.traverse();
     list2.remove(1);

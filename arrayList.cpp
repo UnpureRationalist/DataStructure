@@ -4,19 +4,19 @@
 #include "Vector.h"
 using namespace std;
 
-struct Node
+struct myNode
 {
     double sum;
     int id;
 
-    Node() {}
-    Node(double sum, double id)
+    myNode() {}
+    myNode(double sum, double id)
     {
         this->sum = sum;
         this->id = id;
     }
 
-    bool operator<(const Node &temp) const
+    bool operator<(const myNode &temp) const
     {
         if (sum != temp.sum)
             return sum < temp.sum;
@@ -24,10 +24,10 @@ struct Node
             return id < temp.id;
     }
 
-    friend ostream &operator<<(ostream &o,const Node& temp);
+    friend ostream &operator<<(ostream &o, const myNode &temp);
 };
 
-ostream &operator<<(ostream &o, const Node& temp)
+ostream &operator<<(ostream &o, const myNode &temp)
 {
     o << "[sum = " << temp.sum << ",id = " << temp.id << "]";
     return o;
@@ -65,18 +65,18 @@ int main()
             C++ 11 Lambda表达式:
             https://blog.csdn.net/lcalqf/article/details/79401210
     */
-    list.sort([](const int& a, const int& b) -> bool { return a > b; });
+    list.sort([](const int &a, const int &b) -> bool { return a > b; });
     list.printArray();
     list.sort();
     list.printArray();
 
     //结构体向量 需自定义运算符重载
-    ArrayList<Node> nodeLists;
-    nodeLists.push_front(Node(12.34, 5));
-    nodeLists.insert(0, Node(12.34, 3));
-    nodeLists.insert(0, Node(-12.34, 0));
-    nodeLists.insert(0, Node(129.34, 6));
-    nodeLists.insert(0, Node(-1265.34, -5));
+    ArrayList<myNode> nodeLists;
+    nodeLists.push_front(myNode(12.34, 5));
+    nodeLists.insert(0, myNode(12.34, 3));
+    nodeLists.insert(0, myNode(-12.34, 0));
+    nodeLists.insert(0, myNode(129.34, 6));
+    nodeLists.insert(0, myNode(-1265.34, -5));
     nodeLists.printArray();
     nodeLists.sort();
     nodeLists.printArray();
