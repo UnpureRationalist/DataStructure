@@ -227,7 +227,7 @@ public:
         cout << endl;
     }
 
-    //递归后续遍历
+    //递归后序遍历
     void postOrderTraverse()
     {
         rPostOrder(root);
