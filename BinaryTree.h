@@ -40,18 +40,18 @@ protected:
     }
 
     //递归构造
-    void rCreate(T* a,int *index,int length, BTNode<T> *father,bool isLeft, T endFlag)
+    void rCreate(T *a, int *index, int length, BTNode<T> *father, bool isLeft, T endFlag)
     {
-        if(*index >= length)
+        if (*index >= length)
             return;
         T value = a[(*index)];
         *index = *index + 1;
-        if(value != endFlag)
+        if (value != endFlag)
         {
             BTNode<T> *temp = new BTNode<T>(value);
-            if(temp == NULL)
+            if (temp == NULL)
                 memoryError();
-            if(isLeft)
+            if (isLeft)
                 father->lchild = temp;
             else
                 father->rchild = temp;
@@ -135,9 +135,9 @@ protected:
     //统计叶子节点数目
     int rCountLeaves(BTNode<T> *p)
     {
-        if(p == NULL)
+        if (p == NULL)
             return 0;
-        if(p->lchild == NULL && p->rchild == NULL)
+        if (p->lchild == NULL && p->rchild == NULL)
             return 1;
         return rCountLeaves(p->lchild) + rCountLeaves(p->rchild);
     }
@@ -145,14 +145,19 @@ protected:
     //计算二叉树高度
     int rDepth(BTNode<T> *p)
     {
-        if(p == NULL)
+        if (p == NULL)
             return 0;
-        if(p->lchild == NULL && p->rchild == NULL)
+        if (p->lchild == NULL && p->rchild == NULL)
             return 1;
         return 1 + max(rDepth(p->lchild), rDepth(p->rchild));
     }
 
 public:
+    BinaryTree()
+    {
+        root = NULL;
+    }
+
     //给根节点赋值构造二叉树
     BinaryTree(T rootValue)
     {
@@ -164,10 +169,10 @@ public:
     //根据前序遍历数组构造 3个参数分别为: 数组首地址  数组长度  空节点标志值
     BinaryTree(T *a, int length, T endFlag)
     {
-        if(length >= 1)
+        if (length >= 1)
         {
             root = new BTNode<T>(a[0]);
-            if(root == NULL)
+            if (root == NULL)
                 memoryError();
             int i = 1;
             rCreate(a, &i, length, root, true, endFlag);
@@ -335,16 +340,16 @@ public:
     {
         BTNode<T> *p;
         Queue<BTNode<T> *> q;
-        if(root)
+        if (root)
         {
             q.push(root);
-            while( !q.isEmpty())
+            while (!q.isEmpty())
             {
                 p = q.pop();
-                traverse( &(p->data) );
-                if(p->lchild)
+                traverse(&(p->data));
+                if (p->lchild)
                     q.push(p->lchild);
-                if(p->rchild)
+                if (p->rchild)
                     q.push(p->rchild);
             }
         }
@@ -386,7 +391,7 @@ public:
         {
             if (p) //遍历左子树并进栈
             {
-                count++;    //统计节点数目
+                count++; //统计节点数目
                 s.push(p);
                 p = p->lchild;
             }
