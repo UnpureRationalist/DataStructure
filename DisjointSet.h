@@ -66,7 +66,7 @@ public:
     }
     
     // 查
-    int find(T value) const   // 根据元素值查找 返回下标 -1 代表查找失败
+    int find(T value)   // 根据元素值查找 返回下标 -1 代表查找失败
     {
         auto it = m.find(value);    // 返回迭代器
         if(it == m.end())
