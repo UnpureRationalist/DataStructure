@@ -37,5 +37,5 @@ C++模板实现常用数据结构，包括向量、链表、栈、队列、二�
 头文件： DisjointSet.h  
 测试函数： disjointSet.cpp  
 ## 10.哈希表
-头文件： HashTabel.h  
+头文件： HashTable.h  
 测试函数： hashTable.cpp
