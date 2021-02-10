@@ -33,3 +33,6 @@ C++模板实现常用数据结构，包括向量、链表、栈、队列、二�
 ## 8.优先队列（堆）
 头文件： PriorityQueue.h
 测试函数：priorityQueue.cpp
+## 9.不相交集
+头文件： DisjointSet.h  
+测试函数： disjointSet.cpp  
