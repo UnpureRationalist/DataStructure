@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "BinaryTreeNode.h"
 #include "../03-stack/Stack.h"
-#include "../04-queue/Queue.h"
+#include "../04-queue/LinkedlistQueue.h"
 using namespace std;
 
 //输出一个节点的数据
@@ -339,7 +339,7 @@ public:
     void levelTraverse(void(traverse)(T *))
     {
         BTNode<T> *p;
-        Queue<BTNode<T> *> q;
+        LinkedlistQueue<BTNode<T> *> q;
         if (root)
         {
             q.push(root);
