@@ -2,7 +2,8 @@
 #define BINARY_TREE
 
 #include <iostream>
-#include <stdlib.h>
+#include <cstdlib>
+#include <algorithm>
 #include "BinaryTreeNode.h"
 #include "../03-stack/Stack.h"
 #include "../04-queue/LinkedlistQueue.h"
@@ -19,7 +20,7 @@ template <class T>
 class BinaryTree
 {
 protected:
-    BTNode<T> *root = NULL; //根节点指针
+    BTNode<T> *root = nullptr; //根节点指针
 
     //new失败时调用 结束程序
     void memoryError()
@@ -152,6 +153,46 @@ protected:
         return 1 + max(rDepth(p->lchild), rDepth(p->rchild));
     }
 
+    // 先序 中序构造
+    // 左闭右开区间
+    BTNode<T> *buildTreePre(vector<T> &preorder, int ps, int pe, vector<T> &inorder, int is, int ie)
+    {
+        if (ps >= pe || is >= ie) // 区间为空时 递归结束
+            return nullptr;
+        
+        BTNode<T> *rt = new BTNode<T>(preorder[ps]); // 构造根节点
+
+        typename vector<T>::iterator pos = std::find(inorder.begin() + is, inorder.begin() + ie, preorder[ps]); // 查找子树的根节点在 中序 遍历中的位置
+
+        int leftTreeSize = pos - inorder.begin() - is; // 左子树大小
+
+        // 递归构造  注意下标的计算
+        rt->lchild = buildTreePre(preorder, ps + 1, ps + leftTreeSize + 1, inorder, is, leftTreeSize + is);
+        rt->rchild = buildTreePre(preorder, ps + leftTreeSize + 1, pe, inorder, leftTreeSize + 1 + is, ie);
+        
+        return rt;
+    }
+
+    // 中序 后序构造
+    // 左闭右开区间
+    BTNode<T> *buildTreePost(vector<T> &inorder, int is, int ie, vector<T> &postorder, int ps, int pe)
+    {
+        if (is >= ie || ps >= pe)
+            return nullptr;
+        
+        BTNode<T> *rt = new BTNode<T>(postorder[pe - 1]); // 后序遍历最后一个为 根节点
+
+        typename vector<int>::iterator pos = std::find(inorder.begin() + is, inorder.begin() + ie, postorder[pe - 1]);
+
+        int leftTreeSize = pos - inorder.begin() - is; // 左子树大小
+
+        // 递归构造  注意下标的计算
+        rt->lchild = buildTreePost(inorder, is, is + leftTreeSize, postorder, ps, ps + leftTreeSize);
+        rt->rchild = buildTreePost(inorder, is + leftTreeSize + 1, ie, postorder, ps + leftTreeSize, pe - 1);
+
+        return rt;
+    }
+
 public:
     BinaryTree()
     {
@@ -178,6 +219,20 @@ public:
             rCreate(a, &i, length, root, true, endFlag);
             rCreate(a, &i, length, root, false, endFlag);
         }
+    }
+
+    // 由先序、中序遍历构造二叉树 传入vector进行构造 不做错误检查
+    BinaryTree(vector<T> &preorder, vector<T> &inorder)
+    {
+        if (!preorder.empty())
+                root = buildTreePre(preorder, 0, preorder.size(), inorder, 0, inorder.size());
+    }
+
+    // 由后序、中序遍历构造二叉树 传入vector进行构造 不做错误检查 多加一个参数flag防止重载冲突
+    BinaryTree(vector<T> &inorder, vector<T> &postorder, bool flag)
+    {
+        if (!inorder.empty())
+            root = buildTreePost(inorder, 0, inorder.size(), postorder, 0, postorder.size());
     }
 
     //析构函数

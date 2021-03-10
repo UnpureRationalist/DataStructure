@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "BinaryTree.h"
 using namespace std;
 
@@ -64,5 +65,19 @@ int main()
   doubleTree.levelTraverse();
   cout << "recursion preOrder traverse:\n";
   doubleTree.preOrderTraverse();
+  cout << "____________________________________________________________" << endl;
+  cout << "____________________________________________________________" << endl;
+  /* 先序、中序、后序
+    1  2  4  8  10  3  6  5
+    4  2  8  10  1  6  3  5
+    4  10  8  2  6  5  3  1
+  */
+  vector<int> preorder{1, 2, 4, 8, 10, 3, 6, 5}, inorder{4, 2, 8, 10, 1, 6, 3, 5}, postorder{4, 10, 8, 2, 6, 5, 3, 1};
+  BinaryTree<int> test1(preorder, inorder);
+  cout << "test1 postOrder traverse:" << endl;
+  test1.postOrderTraverse();
+  BinaryTree<int> test2(inorder, postorder, true);
+  cout << "\ntest2 preOrder traverse:" << endl;
+  test2.preOrderTraverse();
   return 0;
 }
